@@ -316,72 +316,210 @@ function next() {
 function generate() {
 
   document.querySelector('[data-step="6"]').classList.remove("active");
-
   document.getElementById("resultScreen").classList.add("active");
-
   document.getElementById("progressBar").style.width = "100%";
 
-  let exercises = [];
+  let workouts = [];
 
-  if (answers.objectif === "muscle") {
+  // PROGRAMMES MAISON
+  if (answers.lieu === "maison") {
 
-    if (answers.lieu === "maison") {
+    if (answers.objectif === "muscle") {
 
-      exercises = [
-        "Pompes — 3 × 8-12",
-        "Squats — 3 × 12-15",
-        "Fentes — 3 × 10/jambe",
-        "Pike push-ups — 3 × 6-10",
-        "Gainage — 3 × 30-45 sec"
+      if (answers.niveau === "debutant") {
+        workouts = [
+          ["Haut du corps", [
+            "Pompes — 3 × 6-10",
+            "Pompes inclinées — 3 × 8-12",
+            "Pike push-ups — 2 × 6-10",
+            "Gainage — 3 × 20-30 sec"
+          ]],
+          ["Jambes", [
+            "Squats — 3 × 10-15",
+            "Fentes — 3 × 8/jambe",
+            "Pont fessier — 3 × 12-15",
+            "Mollets — 3 × 15-20"
+          ]],
+          ["Full body", [
+            "Pompes — 3 × 6-10",
+            "Squats — 3 × 12",
+            "Fentes — 2 × 10/jambe",
+            "Gainage — 3 × 30 sec"
+          ]]
+        ];
+      } else {
+        workouts = [
+          ["Haut du corps", [
+            "Pompes — 4 × 8-15",
+            "Pike push-ups — 3 × 8-12",
+            "Dips entre supports stables — 3 × 8-12",
+            "Gainage — 3 × 40 sec"
+          ]],
+          ["Jambes", [
+            "Squats — 4 × 12-20",
+            "Fentes — 3 × 10/jambe",
+            "Squats bulgares — 3 × 8/jambe",
+            "Mollets — 4 × 15-20"
+          ]],
+          ["Full body", [
+            "Pompes — 4 × 10-15",
+            "Squats — 4 × 15",
+            "Fentes — 3 × 10/jambe",
+            "Pike push-ups — 3 × 8-12"
+          ]]
+        ];
+      }
+
+    } else if (answers.objectif === "perte") {
+
+      workouts = [
+        ["Cardio + jambes", [
+          "Marche rapide — 10 min",
+          "Squats — 3 × 15",
+          "Fentes — 3 × 10/jambe",
+          "Mountain climbers — 3 × 20"
+        ]],
+        ["Full body", [
+          "Jumping jacks — 3 × 30 sec",
+          "Squats — 3 × 15",
+          "Pompes — 3 × 8-12",
+          "Gainage — 3 × 30 sec"
+        ]],
+        ["Cardio", [
+          "Marche rapide — 15 min",
+          "Mountain climbers — 3 × 20",
+          "Gainage — 3 × 30 sec"
+        ]]
       ];
 
     } else {
 
-      exercises = [
-        "Développé couché — 3 × 8-12",
-        "Tirage vertical — 3 × 8-12",
-        "Presse à cuisses — 3 × 10-15",
-        "Élévations latérales — 3 × 12-15",
-        "Gainage — 3 × 30-45 sec"
+      workouts = [
+        ["Remise en forme", [
+          "Marche — 10 min",
+          "Squats — 3 × 10",
+          "Pompes adaptées — 3 × 6-10",
+          "Gainage — 3 × 20 sec"
+        ]],
+        ["Mobilité + corps", [
+          "Marche — 10 min",
+          "Fentes — 2 × 10/jambe",
+          "Pont fessier — 3 × 12",
+          "Gainage — 3 × 20 sec"
+        ]]
       ];
     }
 
-  } else if (answers.objectif === "perte") {
-
-    exercises = [
-      "Marche rapide / cardio — 10 min",
-      "Squats — 3 × 15",
-      "Fentes — 3 × 10/jambe",
-      "Mountain climbers — 3 × 20",
-      "Gainage — 3 × 30 sec"
-    ];
-
+  // PROGRAMMES SALLE
   } else {
 
-    exercises = [
-      "Échauffement — 5 min",
-      "Squats — 3 × 10",
-      "Pompes adaptées — 3 × 6-10",
-      "Fentes — 2 × 10/jambe",
-      "Gainage — 3 × 20 sec"
-    ];
+    if (answers.objectif === "muscle") {
+
+      workouts = [
+        ["Pectoraux + triceps", [
+          "Développé couché — 3 × 8-12",
+          "Développé incliné — 3 × 8-12",
+          "Écartés — 3 × 12-15",
+          "Extension triceps — 3 × 10-15"
+        ]],
+        ["Dos + biceps", [
+          "Tirage vertical — 3 × 8-12",
+          "Rowing — 3 × 8-12",
+          "Tirage horizontal — 3 × 10-12",
+          "Curl biceps — 3 × 10-15"
+        ]],
+        ["Jambes + épaules", [
+          "Presse à cuisses — 3 × 10-15",
+          "Leg curl — 3 × 10-15",
+          "Élévations latérales — 3 × 12-15",
+          "Mollets — 3 × 15-20"
+        ]]
+      ];
+
+    } else if (answers.objectif === "perte") {
+
+      workouts = [
+        ["Cardio + jambes", [
+          "Tapis ou vélo — 15 min",
+          "Presse à cuisses — 3 × 12-15",
+          "Fentes — 3 × 10/jambe",
+          "Gainage — 3 × 30 sec"
+        ]],
+        ["Full body", [
+          "Vélo — 10 min",
+          "Développé — 3 × 10",
+          "Tirage — 3 × 10",
+          "Squats — 3 × 12"
+        ]],
+        ["Cardio", [
+          "Tapis — 20 min",
+          "Vélo — 10 min",
+          "Gainage — 3 × 30 sec"
+        ]]
+      ];
+
+    } else {
+
+      workouts = [
+        ["Full body", [
+          "Échauffement — 5 min",
+          "Presse à cuisses — 3 × 10",
+          "Développé — 3 × 8-10",
+          "Tirage — 3 × 10",
+          "Gainage — 3 × 30 sec"
+        ]],
+        ["Haut du corps", [
+          "Développé — 3 × 10",
+          "Tirage vertical — 3 × 10",
+          "Élévations latérales — 3 × 12",
+          "Curl biceps — 2 × 12"
+        ]]
+      ];
+    }
   }
 
-  let html = "";
+  // ADAPTATION AU NOMBRE DE SÉANCES
+  let selectedWorkouts = [];
 
-  for (let i = 1; i <= answers.seances; i++) {
+  for (let i = 0; i < answers.seances; i++) {
+    selectedWorkouts.push(workouts[i % workouts.length]);
+  }
+
+  // ADAPTATION DE LA DURÉE
+  let durationText = "";
+
+  if (answers.duree <= 20) {
+    durationText = "Séance courte : privilégie les exercices principaux et garde des pauses courtes.";
+  } else if (answers.duree <= 30) {
+    durationText = "Séance de 30 min : concentre-toi sur les exercices principaux.";
+  } else if (answers.duree <= 45) {
+    durationText = "Séance complète : prends ton temps sur la technique et les pauses.";
+  } else {
+    durationText = "Séance longue : tu peux ajouter 1 à 2 exercices complémentaires.";
+  }
+
+  let html = `
+    <div class="result">
+      <p><strong>Objectif :</strong> ${answers.objectif === "muscle" ? "Prise de muscle" : answers.objectif === "perte" ? "Perte de poids" : "Remise en forme"}</p>
+      <p><strong>Niveau :</strong> ${answers.niveau}</p>
+      <p><strong>Durée :</strong> ${answers.duree} minutes</p>
+      <p style="margin-top:10px;">${durationText}</p>
+    </div>
+  `;
+
+  selectedWorkouts.forEach((workout, index) => {
 
     html += `
       <div class="day">
-        <h3>Séance ${i}</h3>
-        <p>${exercises.join("<br>")}</p>
+        <h3>Séance ${index + 1} — ${workout[0]}</h3>
+        <p>${workout[1].join("<br>")}</p>
       </div>
     `;
-  }
+
+  });
 
   document.getElementById("result").innerHTML = html;
 }
-
 </script>
 
 </body>
