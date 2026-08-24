@@ -1,1 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitly</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #111827;
+    }
+
+    header {
+      padding: 25px;
+      text-align: center;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    header h1 {
+      font-size: 32px;
+    }
+
+    header p {
+      margin-top: 8px;
+      color: #6b7280;
+    }
+
+    main {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    select,
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: #111827;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #result {
+      display: none;
+      margin-top: 25px;
+      padding: 20px;
+      background: #f3f4f6;
+      border-radius: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Fitly</h1>
+  <p>Ton entraînement. Ton objectif. Ton rythme.</p>
+</header>
+
+<main>
+
+  <div class="card">
+
+    <h2>Créer mon programme</h2>
+
+    <label>Ton objectif</label>
+    <select id="objectif">
+      <option>Prendre du muscle</option>
+      <option>Perdre du poids</option>
+      <option>Me remettre en forme</option>
+    </select>
+
+    <label>Ton niveau</label>
+    <select id="niveau">
+      <option>Débutant</option>
+      <option>Intermédiaire</option>
+      <option>Avancé</option>
+    </select>
+
+    <label>Nombre de séances par semaine</label>
+    <select id="seances">
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+
+    <label>Durée d'une séance</label>
+    <select id="duree">
+      <option>20 minutes</option>
+      <option>30 minutes</option>
+      <option>45 minutes</option>
+      <option>60 minutes</option>
+    </select>
+
+    <label>Matériel</label>
+    <select id="materiel">
+      <option>Sans matériel</option>
+      <option>Quelques équipements</option>
+      <option>Salle de sport</option>
+    </select>
+
+    <button onclick="creerProgramme()">
+      Créer mon programme
+    </button>
+
+    <div id="result"></div>
+
+  </div>
+
+</main>
+
+<script>
+function creerProgramme() {
+
+  const objectif = document.getElementById("objectif").value;
+  const niveau = document.getElementById("niveau").value;
+  const seances = document.getElementById("seances").value;
+  const duree = document.getElementById("duree").value;
+  const materiel = document.getElementById("materiel").value;
+
+  document.getElementById("result").style.display = "block";
+
+  document.getElementById("result").innerHTML = `
+    <h3>Ton programme Fitly 💪</h3>
+    <br>
+    <p><strong>Objectif :</strong> ${objectif}</p>
+    <p><strong>Niveau :</strong> ${niveau}</p>
+    <p><strong>Séances :</strong> ${seances} par semaine</p>
+    <p><strong>Durée :</strong> ${duree}</p>
+    <p><strong>Matériel :</strong> ${materiel}</p>
+    <br>
+    <p>Ton programme personnalisé sera bientôt généré ici.</p>
+  `;
+}
+</script>
+
+</body>
+</html>
