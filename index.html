@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Fitly — Coach sportif</title>
+<title>Fitly</title>
 
 <style>
 
@@ -15,26 +14,28 @@
 }
 
 body {
-  min-height: 100vh;
   background: #080808;
   color: white;
   font-family: Arial, sans-serif;
+  min-height: 100vh;
 }
 
 .app {
-  width: 100%;
   max-width: 520px;
   margin: auto;
-  padding: 24px;
+  min-height: 100vh;
+  padding-bottom: 90px;
 }
+
+/* HEADER */
 
 header {
   text-align: center;
-  padding: 45px 0 30px;
+  padding: 35px 24px 25px;
 }
 
 .logo {
-  font-size: 42px;
+  font-size: 40px;
   font-weight: 900;
   letter-spacing: -2px;
 }
@@ -42,56 +43,79 @@ header {
 .subtitle {
   color: #888;
   margin-top: 8px;
+  font-size: 14px;
 }
 
-.progress {
-  height: 5px;
-  background: #222;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 35px;
-}
+/* PAGES */
 
-.progress-bar {
-  height: 100%;
-  width: 16%;
-  background: white;
-  transition: .3s;
-}
-
-.screen {
+.page {
   display: none;
+  padding: 0 20px;
 }
 
-.screen.active {
+.page.active {
   display: block;
 }
+
+/* TITRES */
 
 .step {
   color: #777;
   font-size: 13px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 h1 {
-  font-size: 31px;
-  margin-bottom: 28px;
+  font-size: 30px;
+  margin-bottom: 25px;
 }
 
-.options {
-  display: grid;
-  gap: 12px;
+h2 {
+  margin-bottom: 15px;
+}
+
+p {
+  line-height: 1.6;
+}
+
+/* CARTES */
+
+.card {
+  background: #111;
+  border: 1px solid #292929;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+/* BOUTONS */
+
+button {
+  font-family: inherit;
+}
+
+.primary {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  background: white;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 15px;
 }
 
 .option {
   width: 100%;
-  padding: 20px;
-  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 10px;
+  border-radius: 15px;
   border: 1px solid #292929;
   background: #111;
   color: white;
   text-align: left;
-  font-size: 17px;
+  font-size: 16px;
 }
 
 .option.selected {
@@ -99,52 +123,43 @@ h1 {
   color: black;
 }
 
-.next {
-  width: 100%;
-  margin-top: 25px;
-  padding: 17px;
-  border: none;
-  border-radius: 15px;
+/* PROGRAMME */
+
+.progress {
+  height: 5px;
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 25px;
+}
+
+.progress-bar {
+  height: 100%;
   background: white;
-  color: black;
-  font-size: 17px;
-  font-weight: bold;
-}
-
-.next:disabled {
-  opacity: .3;
-}
-
-.result,
-.dashboard-card {
-  background: #111;
-  border: 1px solid #292929;
-  border-radius: 18px;
-  padding: 20px;
-  margin-top: 15px;
+  width: 16%;
+  transition: .3s;
 }
 
 .day {
-  margin-top: 15px;
-  padding: 18px;
   background: #111;
   border: 1px solid #292929;
   border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 12px;
 }
 
 .day h3 {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .day p {
   color: #ccc;
-  line-height: 1.8;
 }
 
 .complete {
   width: 100%;
+  padding: 12px;
   margin-top: 15px;
-  padding: 13px;
   border-radius: 12px;
   border: 1px solid #444;
   background: #1b1b1b;
@@ -157,17 +172,124 @@ h1 {
   color: black;
 }
 
+/* NUTRITION */
+
+.meal {
+  background: #151515;
+  border-radius: 14px;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.meal strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* COMMUNAUTÉ */
+
+.post {
+  background: #111;
+  border: 1px solid #292929;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 12px;
+}
+
+.post-user {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.post-actions {
+  margin-top: 15px;
+  color: #aaa;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  resize: none;
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 12px;
+  color: white;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 15px;
+}
+
+/* PROFIL */
+
+.profile-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  margin: 0 auto 15px;
+}
+
+.profile-name {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.profile-email {
+  text-align: center;
+  color: #777;
+  margin-top: 5px;
+}
+
+/* NAVIGATION */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 520px;
+  height: 72px;
+  background: #101010;
+  border-top: 1px solid #292929;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  z-index: 100;
+}
+
+.nav-button {
+  border: none;
+  background: transparent;
+  color: #777;
+  font-size: 12px;
+}
+
+.nav-button span {
+  display: block;
+  font-size: 22px;
+  margin-bottom: 3px;
+}
+
+.nav-button.active {
+  color: white;
+}
+
+/* STATS */
+
 .stats {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 12px;
-  margin-top: 20px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 .stat {
-  background: #111;
-  border: 1px solid #292929;
-  border-radius: 15px;
+  background: #151515;
+  border-radius: 14px;
   padding: 18px;
   text-align: center;
 }
@@ -175,41 +297,12 @@ h1 {
 .stat strong {
   display: block;
   font-size: 28px;
+  margin-bottom: 5px;
 }
 
 .stat span {
   color: #888;
   font-size: 13px;
-}
-
-.big-number {
-  font-size: 40px;
-  font-weight: 900;
-  margin: 10px 0;
-}
-
-.bar {
-  height: 10px;
-  background: #222;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.bar-fill {
-  height: 100%;
-  width: 0%;
-  background: white;
-  transition: .4s;
-}
-
-.small {
-  color: #888;
-  font-size: 14px;
-  margin-top: 8px;
-}
-
-.restart {
-  margin-top: 20px;
 }
 
 </style>
@@ -220,350 +313,489 @@ h1 {
 <div class="app">
 
 <header>
+  <div class="logo">FITLY</div>
+  <div class="subtitle">
+    Ton entraînement. Ton objectif. Ton rythme.
+  </div>
+</header>
 
-<div class="logo">FITLY</div>
 
-<div class="subtitle">
-Ton entraînement. Ton objectif. Ton rythme.
+<!-- ================= SPORT ================= -->
+
+<section id="sport" class="page active">
+
+<div class="step">FITLY SPORT</div>
+
+<h1>Ton entraînement 🏋️</h1>
+
+<div id="sportHome">
+
+<div class="card">
+
+<h2>Créer ton programme</h2>
+
+<p>
+Réponds à quelques questions et Fitly créera un programme adapté à ton objectif.
+</p>
+
+<button class="primary" onclick="startProgram()">
+🚀 Créer mon programme
+</button>
+
 </div>
 
-</header>
+<div class="card">
+
+<h2>Ta progression 📈</h2>
+
+<div class="stats">
+
+<div class="stat">
+<strong id="sportDone">0</strong>
+<span>Séances</span>
+</div>
+
+<div class="stat">
+<strong id="sportStreak">0</strong>
+<span>Série</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div id="sportQuestions" style="display:none;">
 
 <div class="progress">
 <div class="progress-bar" id="progressBar"></div>
 </div>
 
 
-<!-- QUESTION 1 -->
-
-<section class="screen active" data-step="1">
+<div id="question1">
 
 <div class="step">1 / 6</div>
 
 <h1>Quel est ton objectif ?</h1>
 
-<div class="options">
-
-<button class="option"
-onclick="choose(this,'objectif','muscle')">
+<button class="option" onclick="choose(this,'objectif','muscle')">
 💪 Prendre du muscle
 </button>
 
-<button class="option"
-onclick="choose(this,'objectif','perte')">
+<button class="option" onclick="choose(this,'objectif','perte')">
 🔥 Perdre du poids
 </button>
 
-<button class="option"
-onclick="choose(this,'objectif','forme')">
+<button class="option" onclick="choose(this,'objectif','forme')">
 ❤️ Me remettre en forme
+</button>
+
+<button class="primary" id="next1" disabled onclick="nextQuestion(2)">
+Continuer →
 </button>
 
 </div>
 
-<button class="next"
-id="next1"
-disabled
-onclick="next()">
-Continuer →
-</button>
 
-</section>
-
-
-<!-- QUESTION 2 -->
-
-<section class="screen" data-step="2">
+<div id="question2" style="display:none;">
 
 <div class="step">2 / 6</div>
 
 <h1>Quel est ton niveau ?</h1>
 
-<div class="options">
-
-<button class="option"
-onclick="choose(this,'niveau','debutant')">
+<button class="option" onclick="choose(this,'niveau','debutant')">
 🌱 Débutant
 </button>
 
-<button class="option"
-onclick="choose(this,'niveau','intermediaire')">
+<button class="option" onclick="choose(this,'niveau','intermediaire')">
 ⚡ Intermédiaire
 </button>
 
-<button class="option"
-onclick="choose(this,'niveau','avance')">
+<button class="option" onclick="choose(this,'niveau','avance')">
 🔥 Avancé
+</button>
+
+<button class="primary" id="next2" disabled onclick="nextQuestion(3)">
+Continuer →
 </button>
 
 </div>
 
-<button class="next"
-id="next2"
-disabled
-onclick="next()">
-Continuer →
-</button>
 
-</section>
-
-
-<!-- QUESTION 3 -->
-
-<section class="screen" data-step="3">
+<div id="question3" style="display:none;">
 
 <div class="step">3 / 6</div>
 
 <h1>Où vas-tu t'entraîner ?</h1>
 
-<div class="options">
-
-<button class="option"
-onclick="choose(this,'lieu','maison')">
+<button class="option" onclick="choose(this,'lieu','maison')">
 🏠 À la maison
 </button>
 
-<button class="option"
-onclick="choose(this,'lieu','salle')">
+<button class="option" onclick="choose(this,'lieu','salle')">
 🏋️ À la salle
 </button>
 
-</div>
-
-<button class="next"
-id="next3"
-disabled
-onclick="next()">
+<button class="primary" id="next3" disabled onclick="nextQuestion(4)">
 Continuer →
 </button>
 
-</section>
+</div>
 
 
-<!-- QUESTION 4 -->
-
-<section class="screen" data-step="4">
+<div id="question4" style="display:none;">
 
 <div class="step">4 / 6</div>
 
-<h1>Combien de séances par semaine ?</h1>
+<h1>Combien de séances ?</h1>
 
-<div class="options">
-
-<button class="option"
-onclick="choose(this,'seances',2)">
+<button class="option" onclick="choose(this,'seances',2)">
 2 séances
 </button>
 
-<button class="option"
-onclick="choose(this,'seances',3)">
+<button class="option" onclick="choose(this,'seances',3)">
 3 séances
 </button>
 
-<button class="option"
-onclick="choose(this,'seances',4)">
+<button class="option" onclick="choose(this,'seances',4)">
 4 séances
 </button>
 
-<button class="option"
-onclick="choose(this,'seances',5)">
+<button class="option" onclick="choose(this,'seances',5)">
 5 séances
 </button>
 
-</div>
-
-<button class="next"
-id="next4"
-disabled
-onclick="next()">
+<button class="primary" id="next4" disabled onclick="nextQuestion(5)">
 Continuer →
 </button>
 
-</section>
+</div>
 
 
-<!-- QUESTION 5 -->
-
-<section class="screen" data-step="5">
+<div id="question5" style="display:none;">
 
 <div class="step">5 / 6</div>
 
-<h1>Combien de temps par séance ?</h1>
+<h1>Combien de temps ?</h1>
 
-<div class="options">
-
-<button class="option"
-onclick="choose(this,'duree',20)">
+<button class="option" onclick="choose(this,'duree',20)">
 20 minutes
 </button>
 
-<button class="option"
-onclick="choose(this,'duree',30)">
+<button class="option" onclick="choose(this,'duree',30)">
 30 minutes
 </button>
 
-<button class="option"
-onclick="choose(this,'duree',45)">
+<button class="option" onclick="choose(this,'duree',45)">
 45 minutes
 </button>
 
-<button class="option"
-onclick="choose(this,'duree',60)">
+<button class="option" onclick="choose(this,'duree',60)">
 60 minutes
 </button>
 
-</div>
-
-<button class="next"
-id="next5"
-disabled
-onclick="next()">
+<button class="primary" id="next5" disabled onclick="nextQuestion(6)">
 Continuer →
 </button>
 
-</section>
+</div>
 
 
-<!-- QUESTION 6 -->
-
-<section class="screen" data-step="6">
+<div id="question6" style="display:none;">
 
 <div class="step">6 / 6</div>
 
-<h1>Quel matériel as-tu ?</h1>
+<h1>Quel matériel ?</h1>
 
-<div class="options">
-
-<button class="option"
-onclick="choose(this,'materiel','aucun')">
+<button class="option" onclick="choose(this,'materiel','aucun')">
 🤸 Aucun matériel
 </button>
 
-<button class="option"
-onclick="choose(this,'materiel','maison')">
+<button class="option" onclick="choose(this,'materiel','maison')">
 🏠 Quelques équipements
 </button>
 
-<button class="option"
-onclick="choose(this,'materiel','salle')">
+<button class="option" onclick="choose(this,'materiel','salle')">
 🏋️ Équipement complet
 </button>
 
-</div>
-
-<button class="next"
-id="next6"
-disabled
-onclick="generate()">
+<button class="primary" id="next6" disabled onclick="generateProgram()">
 Créer mon programme 🔥
 </button>
 
-</section>
+</div>
+
+</div>
 
 
-<!-- RESULTAT -->
-
-<section class="screen" id="resultScreen">
+<div id="programResult" style="display:none;">
 
 <div class="step">TON PROGRAMME</div>
 
-<h1>Ton programme est prêt 💪</h1>
+<h1>Programme prêt 💪</h1>
 
-<div id="result"></div>
+<div id="workouts"></div>
 
-</section>
+<button class="primary" onclick="showProgress()">
+📈 Voir ma progression
+</button>
+
+</div>
 
 
-<!-- DASHBOARD -->
+<div id="sportProgress" style="display:none;">
 
-<section class="screen" id="dashboard">
-
-<div class="step">MA PROGRESSION</div>
+<div class="step">PROGRESSION</div>
 
 <h1>Ta progression 📈</h1>
 
-<div class="dashboard-card">
-
-<div>🔥 Série actuelle</div>
-
-<div class="big-number" id="streak">
-0
-</div>
-
-<div class="small">
-séances consécutives
-</div>
-
-</div>
-
-
-<div class="dashboard-card">
-
-<div>🎯 Objectif de la semaine</div>
-
-<div class="big-number">
-
-<span id="weekDone">0</span>/<span id="weekGoal">0</span>
-
-</div>
-
-<div class="bar">
-
-<div class="bar-fill" id="weekBar"></div>
-
-</div>
-
-<div class="small">
-Continue comme ça 💪
-</div>
-
-</div>
-
+<div class="card">
 
 <div class="stats">
 
 <div class="stat">
-
-<strong id="totalDone">
-0
-</strong>
-
+<strong id="progressTotal">0</strong>
 <span>Total séances</span>
-
 </div>
 
 <div class="stat">
+<strong id="progressStreak">0</strong>
+<span>Série</span>
+</div>
 
-<strong id="bestStreak">
-0
-</strong>
-
-<span>Meilleure série</span>
+</div>
 
 </div>
 
 </div>
 
+</section>
 
-<button class="next restart"
-onclick="location.reload()">
-Créer un nouveau programme
+
+<!-- ================= NUTRITION ================= -->
+
+<section id="nutrition" class="page">
+
+<div class="step">FITLY NUTRITION</div>
+
+<h1>Ton alimentation 🍎</h1>
+
+<div class="card">
+
+<h2>Objectif</h2>
+
+<button class="option" onclick="nutritionGoal('muscle')">
+💪 Prise de muscle
 </button>
+
+<button class="option" onclick="nutritionGoal('perte')">
+🔥 Perte de poids
+</button>
+
+<button class="option" onclick="nutritionGoal('equilibre')">
+🥗 Équilibre
+</button>
+
+</div>
+
+<div id="nutritionResult">
+
+<div class="card">
+
+<h2>Exemple de journée</h2>
+
+<div class="meal">
+<strong>🥣 Petit-déjeuner</strong>
+Yaourt, flocons d'avoine, fruit
+</div>
+
+<div class="meal">
+<strong>🍗 Déjeuner</strong>
+Riz, poulet, légumes
+</div>
+
+<div class="meal">
+<strong>🍎 Collation</strong>
+Fruit + poignée de fruits à coque
+</div>
+
+<div class="meal">
+<strong>🍝 Dîner</strong>
+Pâtes, œufs ou poisson, légumes
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= COMMUNAUTÉ ================= -->
+
+<section id="community" class="page">
+
+<div class="step">FITLY COMMUNITY</div>
+
+<h1>Communauté 💬</h1>
+
+<div class="card">
+
+<h2>Partager quelque chose</h2>
+
+<textarea
+id="postText"
+placeholder="Partage ta progression, pose une question..."
+></textarea>
+
+<button class="primary" onclick="createPost()">
+Publier
+</button>
+
+</div>
+
+<div id="posts">
+
+<div class="post">
+
+<div class="post-user">
+👤 Fitly
+</div>
+
+<p>
+Bienvenue dans la communauté Fitly ! 🔥
+</p>
+
+<div class="post-actions">
+❤️ 12 · 💬 3
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= PROFIL ================= -->
+
+<section id="profile" class="page">
+
+<div class="step">MON PROFIL</div>
+
+<h1>Profil 👤</h1>
+
+<div class="card">
+
+<div class="profile-icon">
+👤
+</div>
+
+<div class="profile-name">
+Utilisateur Fitly
+</div>
+
+<div class="profile-email">
+Connecte-toi pour synchroniser tes données
+</div>
+
+<button class="primary" onclick="showLoginMessage()">
+🔐 Créer mon compte
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>Mes statistiques</h2>
+
+<div class="stats">
+
+<div class="stat">
+<strong id="profileWorkouts">0</strong>
+<span>Séances</span>
+</div>
+
+<div class="stat">
+<strong>🔥</strong>
+<span>Fitly</span>
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 </div>
 
 
+<!-- NAVIGATION -->
+
+<nav class="bottom-nav">
+
+<button class="nav-button active"
+onclick="showPage('sport',this)">
+<span>🏋️</span>
+Sport
+</button>
+
+<button class="nav-button"
+onclick="showPage('nutrition',this)">
+<span>🍎</span>
+Nutrition
+</button>
+
+<button class="nav-button"
+onclick="showPage('community',this)">
+<span>💬</span>
+Communauté
+</button>
+
+<button class="nav-button"
+onclick="showPage('profile',this)">
+<span>👤</span>
+Profil
+</button>
+
+</nav>
+
+
 <script>
 
+/* ================= NAVIGATION ================= */
+
+function showPage(page,button){
+
+document
+.querySelectorAll(".page")
+.forEach(p =>
+p.classList.remove("active")
+);
+
+document
+.getElementById(page)
+.classList.add("active");
+
+document
+.querySelectorAll(".nav-button")
+.forEach(b =>
+b.classList.remove("active")
+);
+
+button.classList.add("active");
+
+updateStats();
+
+}
+
+
+/* ================= SPORT ================= */
 
 const answers = {};
-
-let currentStep = 1;
-
-
-/* DONNÉES SAUVEGARDÉES */
 
 let history =
 JSON.parse(
@@ -571,86 +803,93 @@ localStorage.getItem("fitlyHistory")
 ) || [];
 
 
-/* CHOIX */
+function startProgram(){
+
+document.getElementById("sportHome")
+.style.display = "none";
+
+document.getElementById("sportQuestions")
+.style.display = "block";
+
+}
+
 
 function choose(button,key,value){
 
 answers[key] = value;
 
 const options =
-button.parentElement.querySelectorAll(".option");
+button.parentElement
+.querySelectorAll(".option");
 
-options.forEach(option =>
+options.forEach(
+option =>
 option.classList.remove("selected")
 );
 
 button.classList.add("selected");
 
+const step =
+button.closest("[id^='question']");
+
+const number =
+step.id.replace("question","");
+
 document.getElementById(
-"next" + currentStep
+"next" + number
 ).disabled = false;
 
 }
 
 
-/* NAVIGATION */
+function nextQuestion(number){
 
-function next(){
+for(let i=1;i<=6;i++){
 
-document
-.querySelector(
-'[data-step="' + currentStep + '"]'
-)
-.classList.remove("active");
+document.getElementById(
+"question"+i
+).style.display = "none";
 
-currentStep++;
+}
 
-document
-.querySelector(
-'[data-step="' + currentStep + '"]'
-)
-.classList.add("active");
+document.getElementById(
+"question"+number
+).style.display = "block";
 
-document.getElementById("progressBar")
-.style.width =
-((currentStep / 6) * 100) + "%";
+document.getElementById(
+"progressBar"
+).style.width =
+((number/6)*100)+"%";
 
 }
 
 
-/* PROGRAMME */
+/* ================= PROGRAMME ================= */
 
-function generate(){
+function generateProgram(){
 
-document
-.querySelector('[data-step="6"]')
-.classList.remove("active");
+document.getElementById("sportQuestions")
+.style.display = "none";
 
-document
-.getElementById("resultScreen")
-.classList.add("active");
-
-document.getElementById("progressBar")
-.style.width = "100%";
+document.getElementById("programResult")
+.style.display = "block";
 
 
-let workouts = [];
+let workouts=[];
 
 
-/* MAISON */
+if(answers.lieu==="maison"){
 
-if(answers.lieu === "maison"){
+if(answers.objectif==="muscle"){
 
-if(answers.objectif === "muscle"){
-
-workouts = [
+workouts=[
 
 [
 "Haut du corps",
 [
-"Pompes — 3 × 6-10",
-"Pompes inclinées — 3 × 8-12",
-"Pike push-ups — 2 × 6-10",
+"Pompes — 3 × 8-12",
+"Pike push-ups — 3 × 6-10",
+"Pompes inclinées — 3 × 10",
 "Gainage — 3 × 30 sec"
 ]
 ],
@@ -660,15 +899,15 @@ workouts = [
 [
 "Squats — 3 × 12-15",
 "Fentes — 3 × 10/jambe",
-"Pont fessier — 3 × 12-15",
-"Mollets — 3 × 15-20"
+"Pont fessier — 3 × 15",
+"Mollets — 3 × 20"
 ]
 ],
 
 [
 "Full body",
 [
-"Pompes — 3 × 8-12",
+"Pompes — 3 × 10",
 "Squats — 3 × 15",
 "Fentes — 3 × 10/jambe",
 "Gainage — 3 × 30 sec"
@@ -679,17 +918,17 @@ workouts = [
 
 }
 
-else if(answers.objectif === "perte"){
+else if(answers.objectif==="perte"){
 
-workouts = [
+workouts=[
 
 [
-"Cardio + jambes",
+"Cardio",
 [
-"Marche rapide — 10 min",
+"Marche rapide — 15 min",
 "Squats — 3 × 15",
-"Fentes — 3 × 10/jambe",
-"Mountain climbers — 3 × 20"
+"Mountain climbers — 3 × 20",
+"Gainage — 3 × 30 sec"
 ]
 ],
 
@@ -701,15 +940,6 @@ workouts = [
 "Pompes — 3 × 8-12",
 "Gainage — 3 × 30 sec"
 ]
-],
-
-[
-"Cardio",
-[
-"Marche rapide — 15 min",
-"Mountain climbers — 3 × 20",
-"Gainage — 3 × 30 sec"
-]
 ]
 
 ];
@@ -718,20 +948,20 @@ workouts = [
 
 else{
 
-workouts = [
+workouts=[
 
 [
 "Remise en forme",
 [
 "Marche — 10 min",
 "Squats — 3 × 10",
-"Pompes adaptées — 3 × 6-10",
+"Pompes adaptées — 3 × 8",
 "Gainage — 3 × 20 sec"
 ]
 ],
 
 [
-"Mobilité + corps",
+"Corps complet",
 [
 "Marche — 10 min",
 "Fentes — 2 × 10/jambe",
@@ -746,14 +976,9 @@ workouts = [
 
 }
 
-
-/* SALLE */
-
 else{
 
-if(answers.objectif === "muscle"){
-
-workouts = [
+workouts=[
 
 [
 "Pectoraux + triceps",
@@ -789,75 +1014,27 @@ workouts = [
 
 }
 
-else{
 
-workouts = [
-
-[
-"Full body",
-[
-"Échauffement — 5 min",
-"Presse à cuisses — 3 × 10",
-"Développé — 3 × 8-10",
-"Tirage — 3 × 10",
-"Gainage — 3 × 30 sec"
-]
-],
-
-[
-"Haut du corps",
-[
-"Développé — 3 × 10",
-"Tirage vertical — 3 × 10",
-"Élévations latérales — 3 × 12",
-"Curl biceps — 2 × 12"
-]
-]
-
-];
-
-}
-
-}
-
-
-/* CRÉATION DES SÉANCES */
-
-let selected = [];
+let html="";
 
 for(
-let i = 0;
-i < answers.seances;
+let i=0;
+i<answers.seances;
 i++
 ){
 
-selected.push(
-workouts[i % workouts.length]
-);
-
-}
-
-
-/* AFFICHAGE */
-
-let html = "";
-
-
-selected.forEach(
-(workout,index)=>{
+const workout =
+workouts[i % workouts.length];
 
 const id =
-"fitly-" +
-Date.now() +
-"-" +
-index;
+"workout-"+Date.now()+"-"+i;
 
-html += `
+html+=`
 
 <div class="day">
 
 <h3>
-Séance ${index+1} — ${workout[0]}
+Séance ${i+1} — ${workout[0]}
 </h3>
 
 <p>
@@ -876,220 +1053,276 @@ onclick="completeWorkout(this,'${id}')">
 
 `;
 
-});
+}
 
-
-document.getElementById("result")
-.innerHTML = html;
-
-
-/* BOUTON PROGRESSION */
-
-document.getElementById("result")
-.innerHTML += `
-
-<button
-class="next"
-onclick="showDashboard()">
-
-📈 Voir ma progression
-
-</button>
-
-`;
+document.getElementById("workouts")
+.innerHTML=html;
 
 }
 
 
-/* TERMINER UNE SÉANCE */
+/* ================= PROGRESSION ================= */
 
 function completeWorkout(button,id){
 
 if(button.classList.contains("done"))
 return;
 
-
 button.classList.add("done");
 
-button.innerText =
+button.innerText=
 "✓ Séance terminée";
-
-
-const now =
-new Date();
-
 
 history.push({
 
 id:id,
 
-date:
-now.toISOString(),
-
-timestamp:
-Date.now()
+timestamp:Date.now()
 
 });
-
 
 localStorage.setItem(
 "fitlyHistory",
 JSON.stringify(history)
 );
 
+updateStats();
 
 }
 
 
-/* DASHBOARD */
+function showProgress(){
 
-function showDashboard(){
+document.getElementById("programResult")
+.style.display="none";
 
-document
-.getElementById("resultScreen")
-.classList.remove("active");
+document.getElementById("sportProgress")
+.style.display="block";
 
-document
-.getElementById("dashboard")
-.classList.add("active");
-
-
-updateDashboard();
+updateStats();
 
 }
 
 
-/* CALCUL DE LA SEMAINE */
+function updateStats(){
 
-function getWeekStart(){
+const total=history.length;
 
-const date =
-new Date();
+document.getElementById(
+"sportDone"
+).innerText=total;
 
-const day =
-date.getDay();
+document.getElementById(
+"progressTotal"
+).innerText=total;
 
-const diff =
-day === 0 ? 6 : day - 1;
-
-date.setHours(0,0,0,0);
-
-date.setDate(
-date.getDate() - diff
-);
-
-return date;
+document.getElementById(
+"profileWorkouts"
+).innerText=total;
 
 }
 
 
-/* DASHBOARD */
+/* ================= NUTRITION ================= */
 
-function updateDashboard(){
+function nutritionGoal(goal){
 
-const total =
-history.length;
+let text="";
 
+if(goal==="muscle"){
 
-const weekStart =
-getWeekStart()
-.getTime();
+text=`
+<div class="card">
+<h2>Objectif : prise de muscle 💪</h2>
 
+<div class="meal">
+<strong>🥣 Petit-déjeuner</strong>
+Avoine + yaourt + fruit
+</div>
 
-const weekSessions =
-history.filter(
-item =>
-item.timestamp >= weekStart
-);
+<div class="meal">
+<strong>🍗 Déjeuner</strong>
+Riz + poulet + légumes
+</div>
 
+<div class="meal">
+<strong>🥛 Collation</strong>
+Yaourt + fruit
+</div>
 
-const weekDone =
-weekSessions.length;
+<div class="meal">
+<strong>🍳 Dîner</strong>
+Œufs + féculent + légumes
+</div>
 
-
-const goal =
-answers.seances || 3;
-
-
-document.getElementById(
-"totalDone"
-).innerText =
-total;
-
-
-document.getElementById(
-"weekDone"
-).innerText =
-Math.min(weekDone,goal);
-
-
-document.getElementById(
-"weekGoal"
-).innerText =
-goal;
-
-
-let percent =
-Math.min(
-100,
-(weekDone / goal) * 100
-);
-
-
-document.getElementById(
-"weekBar"
-).style.width =
-percent + "%";
-
-
-/* SÉRIE */
-
-let sorted =
-[...history]
-.sort(
-(a,b)=>
-a.timestamp-b.timestamp
-);
-
-
-let streak = 0;
-
-let best = 0;
-
-let lastDay = null;
-
-
-sorted.forEach(item=>{
-
-const day =
-new Date(item.timestamp)
-.toDateString();
-
-
-if(day !== lastDay){
-
-streak++;
-
-best =
-Math.max(best,streak);
-
-lastDay = day;
+</div>
+`;
 
 }
+
+else if(goal==="perte"){
+
+text=`
+<div class="card">
+<h2>Objectif : perte de poids 🔥</h2>
+
+<div class="meal">
+<strong>🥣 Petit-déjeuner</strong>
+Yaourt + fruit + avoine
+</div>
+
+<div class="meal">
+<strong>🥗 Déjeuner</strong>
+Protéines + légumes + féculent
+</div>
+
+<div class="meal">
+<strong>🍎 Collation</strong>
+Fruit
+</div>
+
+<div class="meal">
+<strong>🐟 Dîner</strong>
+Poisson ou autre protéine + légumes
+</div>
+
+</div>
+`;
+
+}
+
+else{
+
+text=`
+<div class="card">
+<h2>Objectif : équilibre 🥗</h2>
+
+<div class="meal">
+<strong>🥣 Petit-déjeuner</strong>
+Produit laitier + céréales + fruit
+</div>
+
+<div class="meal">
+<strong>🍗 Déjeuner</strong>
+Protéines + légumes + féculent
+</div>
+
+<div class="meal">
+<strong>🍎 Collation</strong>
+Fruit + yaourt
+</div>
+
+<div class="meal">
+<strong>🍝 Dîner</strong>
+Repas varié et équilibré
+</div>
+
+</div>
+`;
+
+}
+
+document.getElementById(
+"nutritionResult"
+).innerHTML=text;
+
+}
+
+
+/* ================= COMMUNAUTÉ ================= */
+
+let posts =
+JSON.parse(
+localStorage.getItem("fitlyPosts")
+) || [];
+
+
+function createPost(){
+
+const input=
+document.getElementById("postText");
+
+const text=
+input.value.trim();
+
+if(!text)
+return;
+
+posts.unshift({
+
+text:text,
+
+date:new Date().toLocaleDateString("fr-FR")
 
 });
 
+localStorage.setItem(
+"fitlyPosts",
+JSON.stringify(posts)
+);
 
-document.getElementById(
-"streak"
-).innerText =
-streak;
+input.value="";
+
+renderPosts();
+
+}
 
 
-document.getElementById(
-"bestStreak"
-).innerText =
-best;
+function renderPosts(){
+
+const container=
+document.getElementById("posts");
+
+let html="";
+
+posts.forEach(post=>{
+
+html+=`
+
+<div class="post">
+
+<div class="post-user">
+👤 Utilisateur Fitly
+</div>
+
+<p>
+${escapeHTML(post.text)}
+</p>
+
+<div class="post-actions">
+❤️ 0 · 💬 0
+</div>
+
+</div>
+
+`;
+
+});
+
+container.innerHTML += html;
+
+}
+
+
+function escapeHTML(text){
+
+return text
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+/* ================= PROFIL ================= */
+
+function showLoginMessage(){
+
+alert(
+"Le système de compte arrive bientôt 🔐"
+);
 
 }
 
