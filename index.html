@@ -1,812 +1,1095 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fitly — Ton coach sportif</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<title>Fitly — Coach sportif</title>
 
-    body {
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background: #080808;
-      color: white;
-    }
+<style>
 
-    .app {
-      width: 100%;
-      max-width: 520px;
-      margin: auto;
-      min-height: 100vh;
-      padding: 24px;
-    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    header {
-      text-align: center;
-      padding: 45px 0 35px;
-    }
+body {
+  min-height: 100vh;
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
 
-    .logo {
-      font-size: 42px;
-      font-weight: 900;
-      letter-spacing: -2px;
-    }
+.app {
+  width: 100%;
+  max-width: 520px;
+  margin: auto;
+  padding: 24px;
+}
 
-    .subtitle {
-      color: #9ca3af;
-      margin-top: 10px;
-      font-size: 15px;
-    }
+header {
+  text-align: center;
+  padding: 45px 0 30px;
+}
 
-    .progress {
-      height: 5px;
-      background: #222;
-      border-radius: 10px;
-      margin-bottom: 35px;
-      overflow: hidden;
-    }
+.logo {
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
 
-    .progress-bar {
-      height: 100%;
-      width: 16.66%;
-      background: white;
-      transition: width 0.3s;
-    }
+.subtitle {
+  color: #888;
+  margin-top: 8px;
+}
 
-    .screen {
-      display: none;
-      animation: fade 0.25s ease;
-    }
+.progress {
+  height: 5px;
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 35px;
+}
 
-    .screen.active {
-      display: block;
-    }
+.progress-bar {
+  height: 100%;
+  width: 16%;
+  background: white;
+  transition: .3s;
+}
 
-    @keyframes fade {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
+.screen {
+  display: none;
+}
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+.screen.active {
+  display: block;
+}
 
-    .step {
-      color: #777;
-      font-size: 13px;
-      margin-bottom: 12px;
-    }
+.step {
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
 
-    h1 {
-      font-size: 31px;
-      line-height: 1.15;
-      margin-bottom: 28px;
-    }
+h1 {
+  font-size: 31px;
+  margin-bottom: 28px;
+}
 
-    .options {
-      display: grid;
-      gap: 12px;
-    }
+.options {
+  display: grid;
+  gap: 12px;
+}
 
-    .option {
-      width: 100%;
-      padding: 20px;
-      background: #111;
-      border: 1px solid #292929;
-      border-radius: 16px;
-      color: white;
-      text-align: left;
-      font-size: 17px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+.option {
+  width: 100%;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid #292929;
+  background: #111;
+  color: white;
+  text-align: left;
+  font-size: 17px;
+}
 
-    .option:hover {
-      background: #191919;
-    }
+.option.selected {
+  background: white;
+  color: black;
+}
 
-    .option.selected {
-      background: white;
-      color: black;
-      border-color: white;
-    }
+.next {
+  width: 100%;
+  margin-top: 25px;
+  padding: 17px;
+  border: none;
+  border-radius: 15px;
+  background: white;
+  color: black;
+  font-size: 17px;
+  font-weight: bold;
+}
 
-    .next {
-      width: 100%;
-      margin-top: 25px;
-      padding: 17px;
-      border: none;
-      border-radius: 15px;
-      background: white;
-      color: black;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.next:disabled {
+  opacity: .3;
+}
 
-    .next:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
+.result,
+.dashboard-card {
+  background: #111;
+  border: 1px solid #292929;
+  border-radius: 18px;
+  padding: 20px;
+  margin-top: 15px;
+}
 
-    .result {
-      background: #111;
-      border: 1px solid #292929;
-      border-radius: 18px;
-      padding: 20px;
-      margin-top: 15px;
-    }
+.day {
+  margin-top: 15px;
+  padding: 18px;
+  background: #111;
+  border: 1px solid #292929;
+  border-radius: 16px;
+}
 
-    .day {
-      margin-top: 15px;
-      padding: 18px;
-      background: #111;
-      border: 1px solid #292929;
-      border-radius: 16px;
-    }
+.day h3 {
+  margin-bottom: 12px;
+}
 
-    .day h3 {
-      margin-bottom: 12px;
-    }
+.day p {
+  color: #ccc;
+  line-height: 1.8;
+}
 
-    .day p {
-      color: #d1d5db;
-      line-height: 1.8;
-    }
+.complete {
+  width: 100%;
+  margin-top: 15px;
+  padding: 13px;
+  border-radius: 12px;
+  border: 1px solid #444;
+  background: #1b1b1b;
+  color: white;
+  font-weight: bold;
+}
 
-    .complete {
-      width: 100%;
-      margin-top: 15px;
-      padding: 13px;
-      border: 1px solid #444;
-      border-radius: 12px;
-      background: #1a1a1a;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.complete.done {
+  background: white;
+  color: black;
+}
 
-    .complete.done {
-      background: white;
-      color: black;
-    }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
 
-    .stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 20px;
-    }
+.stat {
+  background: #111;
+  border: 1px solid #292929;
+  border-radius: 15px;
+  padding: 18px;
+  text-align: center;
+}
 
-    .stat {
-      background: #111;
-      border: 1px solid #292929;
-      border-radius: 15px;
-      padding: 18px;
-      text-align: center;
-    }
+.stat strong {
+  display: block;
+  font-size: 28px;
+}
 
-    .stat strong {
-      display: block;
-      font-size: 28px;
-      margin-bottom: 5px;
-    }
+.stat span {
+  color: #888;
+  font-size: 13px;
+}
 
-    .stat span {
-      color: #888;
-      font-size: 13px;
-    }
+.big-number {
+  font-size: 40px;
+  font-weight: 900;
+  margin: 10px 0;
+}
 
-    .restart {
-      margin-top: 20px;
-    }
-  </style>
+.bar {
+  height: 10px;
+  background: #222;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  width: 0%;
+  background: white;
+  transition: .4s;
+}
+
+.small {
+  color: #888;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.restart {
+  margin-top: 20px;
+}
+
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
-  <header>
-    <div class="logo">FITLY</div>
-    <div class="subtitle">Ton entraînement. Ton objectif. Ton rythme.</div>
-  </header>
+<header>
 
-  <div class="progress">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
+<div class="logo">FITLY</div>
 
-  <!-- QUESTION 1 -->
+<div class="subtitle">
+Ton entraînement. Ton objectif. Ton rythme.
+</div>
 
-  <section class="screen active" data-step="1">
+</header>
 
-    <div class="step">1 / 6</div>
+<div class="progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
 
-    <h1>Quel est ton objectif ?</h1>
 
-    <div class="options">
+<!-- QUESTION 1 -->
 
-      <button class="option" onclick="choose(this,'objectif','muscle')">
-        💪 Prendre du muscle
-      </button>
+<section class="screen active" data-step="1">
 
-      <button class="option" onclick="choose(this,'objectif','perte')">
-        🔥 Perdre du poids
-      </button>
+<div class="step">1 / 6</div>
 
-      <button class="option" onclick="choose(this,'objectif','forme')">
-        ❤️ Me remettre en forme
-      </button>
+<h1>Quel est ton objectif ?</h1>
 
-    </div>
+<div class="options">
 
-    <button class="next" id="next1" disabled onclick="next()">
-      Continuer →
-    </button>
+<button class="option"
+onclick="choose(this,'objectif','muscle')">
+💪 Prendre du muscle
+</button>
 
-  </section>
+<button class="option"
+onclick="choose(this,'objectif','perte')">
+🔥 Perdre du poids
+</button>
 
+<button class="option"
+onclick="choose(this,'objectif','forme')">
+❤️ Me remettre en forme
+</button>
 
-  <!-- QUESTION 2 -->
+</div>
 
-  <section class="screen" data-step="2">
+<button class="next"
+id="next1"
+disabled
+onclick="next()">
+Continuer →
+</button>
 
-    <div class="step">2 / 6</div>
+</section>
 
-    <h1>Quel est ton niveau ?</h1>
 
-    <div class="options">
+<!-- QUESTION 2 -->
 
-      <button class="option" onclick="choose(this,'niveau','debutant')">
-        🌱 Débutant
-      </button>
+<section class="screen" data-step="2">
 
-      <button class="option" onclick="choose(this,'niveau','intermediaire')">
-        ⚡ Intermédiaire
-      </button>
+<div class="step">2 / 6</div>
 
-      <button class="option" onclick="choose(this,'niveau','avance')">
-        🔥 Avancé
-      </button>
+<h1>Quel est ton niveau ?</h1>
 
-    </div>
+<div class="options">
 
-    <button class="next" id="next2" disabled onclick="next()">
-      Continuer →
-    </button>
+<button class="option"
+onclick="choose(this,'niveau','debutant')">
+🌱 Débutant
+</button>
 
-  </section>
+<button class="option"
+onclick="choose(this,'niveau','intermediaire')">
+⚡ Intermédiaire
+</button>
 
+<button class="option"
+onclick="choose(this,'niveau','avance')">
+🔥 Avancé
+</button>
 
-  <!-- QUESTION 3 -->
+</div>
 
-  <section class="screen" data-step="3">
+<button class="next"
+id="next2"
+disabled
+onclick="next()">
+Continuer →
+</button>
 
-    <div class="step">3 / 6</div>
+</section>
 
-    <h1>Où vas-tu t'entraîner ?</h1>
 
-    <div class="options">
+<!-- QUESTION 3 -->
 
-      <button class="option" onclick="choose(this,'lieu','maison')">
-        🏠 À la maison
-      </button>
+<section class="screen" data-step="3">
 
-      <button class="option" onclick="choose(this,'lieu','salle')">
-        🏋️ À la salle
-      </button>
+<div class="step">3 / 6</div>
 
-    </div>
+<h1>Où vas-tu t'entraîner ?</h1>
 
-    <button class="next" id="next3" disabled onclick="next()">
-      Continuer →
-    </button>
+<div class="options">
 
-  </section>
+<button class="option"
+onclick="choose(this,'lieu','maison')">
+🏠 À la maison
+</button>
 
+<button class="option"
+onclick="choose(this,'lieu','salle')">
+🏋️ À la salle
+</button>
 
-  <!-- QUESTION 4 -->
+</div>
 
-  <section class="screen" data-step="4">
+<button class="next"
+id="next3"
+disabled
+onclick="next()">
+Continuer →
+</button>
 
-    <div class="step">4 / 6</div>
+</section>
 
-    <h1>Combien de séances par semaine ?</h1>
 
-    <div class="options">
+<!-- QUESTION 4 -->
 
-      <button class="option" onclick="choose(this,'seances',2)">
-        2 séances
-      </button>
+<section class="screen" data-step="4">
 
-      <button class="option" onclick="choose(this,'seances',3)">
-        3 séances
-      </button>
+<div class="step">4 / 6</div>
 
-      <button class="option" onclick="choose(this,'seances',4)">
-        4 séances
-      </button>
+<h1>Combien de séances par semaine ?</h1>
 
-      <button class="option" onclick="choose(this,'seances',5)">
-        5 séances
-      </button>
+<div class="options">
 
-    </div>
+<button class="option"
+onclick="choose(this,'seances',2)">
+2 séances
+</button>
 
-    <button class="next" id="next4" disabled onclick="next()">
-      Continuer →
-    </button>
+<button class="option"
+onclick="choose(this,'seances',3)">
+3 séances
+</button>
 
-  </section>
+<button class="option"
+onclick="choose(this,'seances',4)">
+4 séances
+</button>
 
+<button class="option"
+onclick="choose(this,'seances',5)">
+5 séances
+</button>
 
-  <!-- QUESTION 5 -->
+</div>
 
-  <section class="screen" data-step="5">
+<button class="next"
+id="next4"
+disabled
+onclick="next()">
+Continuer →
+</button>
 
-    <div class="step">5 / 6</div>
+</section>
 
-    <h1>Combien de temps par séance ?</h1>
 
-    <div class="options">
+<!-- QUESTION 5 -->
 
-      <button class="option" onclick="choose(this,'duree',20)">
-        20 minutes
-      </button>
+<section class="screen" data-step="5">
 
-      <button class="option" onclick="choose(this,'duree',30)">
-        30 minutes
-      </button>
+<div class="step">5 / 6</div>
 
-      <button class="option" onclick="choose(this,'duree',45)">
-        45 minutes
-      </button>
+<h1>Combien de temps par séance ?</h1>
 
-      <button class="option" onclick="choose(this,'duree',60)">
-        60 minutes
-      </button>
+<div class="options">
 
-    </div>
+<button class="option"
+onclick="choose(this,'duree',20)">
+20 minutes
+</button>
 
-    <button class="next" id="next5" disabled onclick="next()">
-      Continuer →
-    </button>
+<button class="option"
+onclick="choose(this,'duree',30)">
+30 minutes
+</button>
 
-  </section>
+<button class="option"
+onclick="choose(this,'duree',45)">
+45 minutes
+</button>
 
+<button class="option"
+onclick="choose(this,'duree',60)">
+60 minutes
+</button>
 
-  <!-- QUESTION 6 -->
+</div>
 
-  <section class="screen" data-step="6">
+<button class="next"
+id="next5"
+disabled
+onclick="next()">
+Continuer →
+</button>
 
-    <div class="step">6 / 6</div>
+</section>
 
-    <h1>Quel matériel as-tu ?</h1>
 
-    <div class="options">
+<!-- QUESTION 6 -->
 
-      <button class="option" onclick="choose(this,'materiel','aucun')">
-        🤸 Aucun matériel
-      </button>
+<section class="screen" data-step="6">
 
-      <button class="option" onclick="choose(this,'materiel','maison')">
-        🏠 Quelques équipements
-      </button>
+<div class="step">6 / 6</div>
 
-      <button class="option" onclick="choose(this,'materiel','salle')">
-        🏋️ Équipement complet
-      </button>
+<h1>Quel matériel as-tu ?</h1>
 
-    </div>
+<div class="options">
 
-    <button class="next" id="next6" disabled onclick="generate()">
-      Créer mon programme 🔥
-    </button>
+<button class="option"
+onclick="choose(this,'materiel','aucun')">
+🤸 Aucun matériel
+</button>
 
-  </section>
+<button class="option"
+onclick="choose(this,'materiel','maison')">
+🏠 Quelques équipements
+</button>
 
+<button class="option"
+onclick="choose(this,'materiel','salle')">
+🏋️ Équipement complet
+</button>
 
-  <!-- RESULTAT -->
+</div>
 
-  <section class="screen" id="resultScreen">
+<button class="next"
+id="next6"
+disabled
+onclick="generate()">
+Créer mon programme 🔥
+</button>
 
-    <div class="step">TON PROGRAMME</div>
+</section>
 
-    <h1>Ton programme est prêt 💪</h1>
 
-    <div id="result"></div>
+<!-- RESULTAT -->
 
-    <div class="stats">
+<section class="screen" id="resultScreen">
 
-      <div class="stat">
-        <strong id="completedCount">0</strong>
-        <span>Séances terminées</span>
-      </div>
+<div class="step">TON PROGRAMME</div>
 
-      <div class="stat">
-        <strong id="totalCount">0</strong>
-        <span>Séances prévues</span>
-      </div>
+<h1>Ton programme est prêt 💪</h1>
 
-    </div>
+<div id="result"></div>
 
-    <button class="next restart" onclick="location.reload()">
-      Recommencer
-    </button>
+</section>
 
-  </section>
+
+<!-- DASHBOARD -->
+
+<section class="screen" id="dashboard">
+
+<div class="step">MA PROGRESSION</div>
+
+<h1>Ta progression 📈</h1>
+
+<div class="dashboard-card">
+
+<div>🔥 Série actuelle</div>
+
+<div class="big-number" id="streak">
+0
+</div>
+
+<div class="small">
+séances consécutives
+</div>
+
+</div>
+
+
+<div class="dashboard-card">
+
+<div>🎯 Objectif de la semaine</div>
+
+<div class="big-number">
+
+<span id="weekDone">0</span>/<span id="weekGoal">0</span>
+
+</div>
+
+<div class="bar">
+
+<div class="bar-fill" id="weekBar"></div>
+
+</div>
+
+<div class="small">
+Continue comme ça 💪
+</div>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+
+<strong id="totalDone">
+0
+</strong>
+
+<span>Total séances</span>
+
+</div>
+
+<div class="stat">
+
+<strong id="bestStreak">
+0
+</strong>
+
+<span>Meilleure série</span>
+
+</div>
+
+</div>
+
+
+<button class="next restart"
+onclick="location.reload()">
+Créer un nouveau programme
+</button>
+
+</section>
 
 </div>
 
 
 <script>
 
+
 const answers = {};
 
 let currentStep = 1;
 
-let completedWorkouts =
-  JSON.parse(localStorage.getItem("fitlyCompleted")) || [];
 
+/* DONNÉES SAUVEGARDÉES */
 
-function choose(button, key, value) {
+let history =
+JSON.parse(
+localStorage.getItem("fitlyHistory")
+) || [];
 
-  answers[key] = value;
 
-  const options =
-    button.parentElement.querySelectorAll(".option");
+/* CHOIX */
 
-  options.forEach(option => {
-    option.classList.remove("selected");
-  });
+function choose(button,key,value){
 
-  button.classList.add("selected");
+answers[key] = value;
 
-  document.getElementById(
-    "next" + currentStep
-  ).disabled = false;
-}
+const options =
+button.parentElement.querySelectorAll(".option");
 
+options.forEach(option =>
+option.classList.remove("selected")
+);
 
-function next() {
+button.classList.add("selected");
 
-  document
-    .querySelector('[data-step="' + currentStep + '"]')
-    .classList.remove("active");
-
-  currentStep++;
-
-  document
-    .querySelector('[data-step="' + currentStep + '"]')
-    .classList.add("active");
-
-  document.getElementById("progressBar").style.width =
-    ((currentStep / 6) * 100) + "%";
-}
-
-
-function generate() {
-
-  document
-    .querySelector('[data-step="6"]')
-    .classList.remove("active");
-
-  document
-    .getElementById("resultScreen")
-    .classList.add("active");
-
-  document.getElementById("progressBar").style.width = "100%";
-
-
-  let workouts = [];
-
-
-  /* MAISON */
-
-  if (answers.lieu === "maison") {
-
-    if (answers.objectif === "muscle") {
-
-      workouts = [
-
-        [
-          "Haut du corps",
-          [
-            "Pompes — 3 × 6-10",
-            "Pompes inclinées — 3 × 8-12",
-            "Pike push-ups — 2 × 6-10",
-            "Gainage — 3 × 20-30 sec"
-          ]
-        ],
-
-        [
-          "Jambes",
-          [
-            "Squats — 3 × 10-15",
-            "Fentes — 3 × 8/jambe",
-            "Pont fessier — 3 × 12-15",
-            "Mollets — 3 × 15-20"
-          ]
-        ],
-
-        [
-          "Full body",
-          [
-            "Pompes — 3 × 6-10",
-            "Squats — 3 × 12",
-            "Fentes — 2 × 10/jambe",
-            "Gainage — 3 × 30 sec"
-          ]
-        ]
-
-      ];
-
-    } else if (answers.objectif === "perte") {
-
-      workouts = [
-
-        [
-          "Cardio + jambes",
-          [
-            "Marche rapide — 10 min",
-            "Squats — 3 × 15",
-            "Fentes — 3 × 10/jambe",
-            "Mountain climbers — 3 × 20"
-          ]
-        ],
-
-        [
-          "Full body",
-          [
-            "Jumping jacks — 3 × 30 sec",
-            "Squats — 3 × 15",
-            "Pompes — 3 × 8-12",
-            "Gainage — 3 × 30 sec"
-          ]
-        ],
-
-        [
-          "Cardio",
-          [
-            "Marche rapide — 15 min",
-            "Mountain climbers — 3 × 20",
-            "Gainage — 3 × 30 sec"
-          ]
-        ]
-
-      ];
-
-    } else {
-
-      workouts = [
-
-        [
-          "Remise en forme",
-          [
-            "Marche — 10 min",
-            "Squats — 3 × 10",
-            "Pompes adaptées — 3 × 6-10",
-            "Gainage — 3 × 20 sec"
-          ]
-        ],
-
-        [
-          "Mobilité + corps",
-          [
-            "Marche — 10 min",
-            "Fentes — 2 × 10/jambe",
-            "Pont fessier — 3 × 12",
-            "Gainage — 3 × 20 sec"
-          ]
-        ]
-
-      ];
-
-    }
-
-
-  /* SALLE */
-
-  } else {
-
-    if (answers.objectif === "muscle") {
-
-      workouts = [
-
-        [
-          "Pectoraux + triceps",
-          [
-            "Développé couché — 3 × 8-12",
-            "Développé incliné — 3 × 8-12",
-            "Écartés — 3 × 12-15",
-            "Extension triceps — 3 × 10-15"
-          ]
-        ],
-
-        [
-          "Dos + biceps",
-          [
-            "Tirage vertical — 3 × 8-12",
-            "Rowing — 3 × 8-12",
-            "Tirage horizontal — 3 × 10-12",
-            "Curl biceps — 3 × 10-15"
-          ]
-        ],
-
-        [
-          "Jambes + épaules",
-          [
-            "Presse à cuisses — 3 × 10-15",
-            "Leg curl — 3 × 10-15",
-            "Élévations latérales — 3 × 12-15",
-            "Mollets — 3 × 15-20"
-          ]
-        ]
-
-      ];
-
-    } else {
-
-      workouts = [
-
-        [
-          "Full body",
-          [
-            "Échauffement — 5 min",
-            "Presse à cuisses — 3 × 10",
-            "Développé — 3 × 8-10",
-            "Tirage — 3 × 10",
-            "Gainage — 3 × 30 sec"
-          ]
-        ],
-
-        [
-          "Haut du corps",
-          [
-            "Développé — 3 × 10",
-            "Tirage vertical — 3 × 10",
-            "Élévations latérales — 3 × 12",
-            "Curl biceps — 2 × 12"
-          ]
-        ]
-
-      ];
-
-    }
-
-  }
-
-
-  let selectedWorkouts = [];
-
-  for (
-    let i = 0;
-    i < answers.seances;
-    i++
-  ) {
-
-    selectedWorkouts.push(
-      workouts[i % workouts.length]
-    );
-
-  }
-
-
-  let html = "";
-
-
-  selectedWorkouts.forEach(
-    (workout, index) => {
-
-      const id = "workout-" + index;
-
-      const isDone =
-        completedWorkouts.includes(id);
-
-      html += `
-
-        <div class="day">
-
-          <h3>
-            Séance ${index + 1}
-            — ${workout[0]}
-          </h3>
-
-          <p>
-            ${workout[1].join("<br>")}
-          </p>
-
-          <button
-            class="complete ${isDone ? "done" : ""}"
-            id="${id}"
-            onclick="completeWorkout('${id}')"
-          >
-
-            ${isDone
-              ? "✓ Séance terminée"
-              : "✓ Terminer la séance"}
-
-          </button>
-
-        </div>
-
-      `;
-
-    }
-  );
-
-
-  document.getElementById("result").innerHTML =
-    html;
-
-  updateStats(selectedWorkouts.length);
+document.getElementById(
+"next" + currentStep
+).disabled = false;
 
 }
 
 
-function completeWorkout(id) {
+/* NAVIGATION */
 
-  const button =
-    document.getElementById(id);
+function next(){
 
+document
+.querySelector(
+'[data-step="' + currentStep + '"]'
+)
+.classList.remove("active");
 
-  if (completedWorkouts.includes(id)) {
+currentStep++;
 
-    completedWorkouts =
-      completedWorkouts.filter(
-        workout => workout !== id
-      );
+document
+.querySelector(
+'[data-step="' + currentStep + '"]'
+)
+.classList.add("active");
 
-    button.classList.remove("done");
-
-    button.innerText =
-      "✓ Terminer la séance";
-
-  } else {
-
-    completedWorkouts.push(id);
-
-    button.classList.add("done");
-
-    button.innerText =
-      "✓ Séance terminée";
-
-  }
-
-
-  localStorage.setItem(
-    "fitlyCompleted",
-    JSON.stringify(completedWorkouts)
-  );
-
-
-  updateStats(
-    document.querySelectorAll(".day").length
-  );
+document.getElementById("progressBar")
+.style.width =
+((currentStep / 6) * 100) + "%";
 
 }
 
 
-function updateStats(total) {
+/* PROGRAMME */
 
-  document.getElementById(
-    "completedCount"
-  ).innerText =
-    completedWorkouts.length;
+function generate(){
 
-  document.getElementById(
-    "totalCount"
-  ).innerText =
-    total;
+document
+.querySelector('[data-step="6"]')
+.classList.remove("active");
+
+document
+.getElementById("resultScreen")
+.classList.add("active");
+
+document.getElementById("progressBar")
+.style.width = "100%";
+
+
+let workouts = [];
+
+
+/* MAISON */
+
+if(answers.lieu === "maison"){
+
+if(answers.objectif === "muscle"){
+
+workouts = [
+
+[
+"Haut du corps",
+[
+"Pompes — 3 × 6-10",
+"Pompes inclinées — 3 × 8-12",
+"Pike push-ups — 2 × 6-10",
+"Gainage — 3 × 30 sec"
+]
+],
+
+[
+"Jambes",
+[
+"Squats — 3 × 12-15",
+"Fentes — 3 × 10/jambe",
+"Pont fessier — 3 × 12-15",
+"Mollets — 3 × 15-20"
+]
+],
+
+[
+"Full body",
+[
+"Pompes — 3 × 8-12",
+"Squats — 3 × 15",
+"Fentes — 3 × 10/jambe",
+"Gainage — 3 × 30 sec"
+]
+]
+
+];
+
+}
+
+else if(answers.objectif === "perte"){
+
+workouts = [
+
+[
+"Cardio + jambes",
+[
+"Marche rapide — 10 min",
+"Squats — 3 × 15",
+"Fentes — 3 × 10/jambe",
+"Mountain climbers — 3 × 20"
+]
+],
+
+[
+"Full body",
+[
+"Jumping jacks — 3 × 30 sec",
+"Squats — 3 × 15",
+"Pompes — 3 × 8-12",
+"Gainage — 3 × 30 sec"
+]
+],
+
+[
+"Cardio",
+[
+"Marche rapide — 15 min",
+"Mountain climbers — 3 × 20",
+"Gainage — 3 × 30 sec"
+]
+]
+
+];
+
+}
+
+else{
+
+workouts = [
+
+[
+"Remise en forme",
+[
+"Marche — 10 min",
+"Squats — 3 × 10",
+"Pompes adaptées — 3 × 6-10",
+"Gainage — 3 × 20 sec"
+]
+],
+
+[
+"Mobilité + corps",
+[
+"Marche — 10 min",
+"Fentes — 2 × 10/jambe",
+"Pont fessier — 3 × 12",
+"Gainage — 3 × 20 sec"
+]
+]
+
+];
+
+}
+
+}
+
+
+/* SALLE */
+
+else{
+
+if(answers.objectif === "muscle"){
+
+workouts = [
+
+[
+"Pectoraux + triceps",
+[
+"Développé couché — 3 × 8-12",
+"Développé incliné — 3 × 8-12",
+"Écartés — 3 × 12-15",
+"Extension triceps — 3 × 10-15"
+]
+],
+
+[
+"Dos + biceps",
+[
+"Tirage vertical — 3 × 8-12",
+"Rowing — 3 × 8-12",
+"Tirage horizontal — 3 × 10-12",
+"Curl biceps — 3 × 10-15"
+]
+],
+
+[
+"Jambes + épaules",
+[
+"Presse à cuisses — 3 × 10-15",
+"Leg curl — 3 × 10-15",
+"Élévations latérales — 3 × 12-15",
+"Mollets — 3 × 15-20"
+]
+]
+
+];
+
+}
+
+else{
+
+workouts = [
+
+[
+"Full body",
+[
+"Échauffement — 5 min",
+"Presse à cuisses — 3 × 10",
+"Développé — 3 × 8-10",
+"Tirage — 3 × 10",
+"Gainage — 3 × 30 sec"
+]
+],
+
+[
+"Haut du corps",
+[
+"Développé — 3 × 10",
+"Tirage vertical — 3 × 10",
+"Élévations latérales — 3 × 12",
+"Curl biceps — 2 × 12"
+]
+]
+
+];
+
+}
+
+}
+
+
+/* CRÉATION DES SÉANCES */
+
+let selected = [];
+
+for(
+let i = 0;
+i < answers.seances;
+i++
+){
+
+selected.push(
+workouts[i % workouts.length]
+);
+
+}
+
+
+/* AFFICHAGE */
+
+let html = "";
+
+
+selected.forEach(
+(workout,index)=>{
+
+const id =
+"fitly-" +
+Date.now() +
+"-" +
+index;
+
+html += `
+
+<div class="day">
+
+<h3>
+Séance ${index+1} — ${workout[0]}
+</h3>
+
+<p>
+${workout[1].join("<br>")}
+</p>
+
+<button
+class="complete"
+onclick="completeWorkout(this,'${id}')">
+
+✓ Terminer la séance
+
+</button>
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById("result")
+.innerHTML = html;
+
+
+/* BOUTON PROGRESSION */
+
+document.getElementById("result")
+.innerHTML += `
+
+<button
+class="next"
+onclick="showDashboard()">
+
+📈 Voir ma progression
+
+</button>
+
+`;
+
+}
+
+
+/* TERMINER UNE SÉANCE */
+
+function completeWorkout(button,id){
+
+if(button.classList.contains("done"))
+return;
+
+
+button.classList.add("done");
+
+button.innerText =
+"✓ Séance terminée";
+
+
+const now =
+new Date();
+
+
+history.push({
+
+id:id,
+
+date:
+now.toISOString(),
+
+timestamp:
+Date.now()
+
+});
+
+
+localStorage.setItem(
+"fitlyHistory",
+JSON.stringify(history)
+);
+
+
+}
+
+
+/* DASHBOARD */
+
+function showDashboard(){
+
+document
+.getElementById("resultScreen")
+.classList.remove("active");
+
+document
+.getElementById("dashboard")
+.classList.add("active");
+
+
+updateDashboard();
+
+}
+
+
+/* CALCUL DE LA SEMAINE */
+
+function getWeekStart(){
+
+const date =
+new Date();
+
+const day =
+date.getDay();
+
+const diff =
+day === 0 ? 6 : day - 1;
+
+date.setHours(0,0,0,0);
+
+date.setDate(
+date.getDate() - diff
+);
+
+return date;
+
+}
+
+
+/* DASHBOARD */
+
+function updateDashboard(){
+
+const total =
+history.length;
+
+
+const weekStart =
+getWeekStart()
+.getTime();
+
+
+const weekSessions =
+history.filter(
+item =>
+item.timestamp >= weekStart
+);
+
+
+const weekDone =
+weekSessions.length;
+
+
+const goal =
+answers.seances || 3;
+
+
+document.getElementById(
+"totalDone"
+).innerText =
+total;
+
+
+document.getElementById(
+"weekDone"
+).innerText =
+Math.min(weekDone,goal);
+
+
+document.getElementById(
+"weekGoal"
+).innerText =
+goal;
+
+
+let percent =
+Math.min(
+100,
+(weekDone / goal) * 100
+);
+
+
+document.getElementById(
+"weekBar"
+).style.width =
+percent + "%";
+
+
+/* SÉRIE */
+
+let sorted =
+[...history]
+.sort(
+(a,b)=>
+a.timestamp-b.timestamp
+);
+
+
+let streak = 0;
+
+let best = 0;
+
+let lastDay = null;
+
+
+sorted.forEach(item=>{
+
+const day =
+new Date(item.timestamp)
+.toDateString();
+
+
+if(day !== lastDay){
+
+streak++;
+
+best =
+Math.max(best,streak);
+
+lastDay = day;
+
+}
+
+});
+
+
+document.getElementById(
+"streak"
+).innerText =
+streak;
+
+
+document.getElementById(
+"bestStreak"
+).innerText =
+best;
 
 }
 
