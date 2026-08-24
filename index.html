@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fitly</title>
+  <title>Fitly — Ton coach sportif</title>
 
   <style>
     * {
@@ -13,235 +13,373 @@
     }
 
     body {
+      min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: #f5f7fa;
-      color: #111827;
+      background: #080808;
+      color: white;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 520px;
+      min-height: 100vh;
+      padding: 24px;
     }
 
     header {
-      padding: 25px;
       text-align: center;
-      background: white;
-      border-bottom: 1px solid #e5e7eb;
+      padding-top: 45px;
+      padding-bottom: 35px;
     }
 
-    header h1 {
-      font-size: 32px;
+    .logo {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -2px;
     }
 
-    header p {
-      margin-top: 8px;
-      color: #6b7280;
+    .subtitle {
+      color: #9ca3af;
+      margin-top: 10px;
+      font-size: 15px;
     }
 
-    main {
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-
-    h2 {
-      margin-bottom: 25px;
-    }
-
-    label {
-      display: block;
-      margin-top: 18px;
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
-
-    select {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #d1d5db;
+    .progress {
+      height: 5px;
+      background: #222;
       border-radius: 10px;
-      font-size: 16px;
-      background: white;
+      margin-bottom: 35px;
+      overflow: hidden;
     }
 
-    button {
+    .progress-bar {
+      height: 100%;
+      width: 16.66%;
+      background: white;
+      transition: width 0.3s;
+    }
+
+    .screen {
+      display: none;
+      animation: fade 0.25s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .step {
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 31px;
+      line-height: 1.15;
+      margin-bottom: 28px;
+    }
+
+    .options {
+      display: grid;
+      gap: 12px;
+    }
+
+    .option {
+      width: 100%;
+      padding: 20px;
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 16px;
+      color: white;
+      text-align: left;
+      font-size: 17px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .option:hover {
+      background: #191919;
+      border-color: #555;
+      transform: translateY(-2px);
+    }
+
+    .option.selected {
+      background: #fff;
+      color: #000;
+      border-color: white;
+    }
+
+    .next {
       width: 100%;
       margin-top: 25px;
-      padding: 15px;
+      padding: 17px;
       border: none;
-      border-radius: 12px;
-      background: #111827;
-      color: white;
+      border-radius: 15px;
+      background: white;
+      color: black;
       font-size: 17px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    #result {
-      display: none;
-      margin-top: 25px;
-      padding: 22px;
-      background: #f3f4f6;
-      border-radius: 15px;
-      line-height: 1.7;
+    .next:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .result {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 18px;
+      padding: 20px;
+      margin-top: 15px;
     }
 
     .day {
-      margin-top: 18px;
-      padding: 15px;
-      background: white;
-      border-radius: 12px;
+      margin-top: 15px;
+      padding: 16px;
+      background: #181818;
+      border-radius: 14px;
     }
 
-    .day h4 {
-      margin-bottom: 8px;
+    .day h3 {
+      margin-bottom: 10px;
+    }
+
+    .day p {
+      color: #d1d5db;
+      line-height: 1.8;
+    }
+
+    .restart {
+      margin-top: 20px;
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>Fitly</h1>
-  <p>Ton entraînement. Ton objectif. Ton rythme.</p>
-</header>
+<div class="app">
 
-<main>
+  <header>
+    <div class="logo">FITLY</div>
+    <div class="subtitle">Ton entraînement. Ton objectif. Ton rythme.</div>
+  </header>
 
-  <div class="card">
+  <div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
 
-    <h2>Créer mon programme 💪</h2>
+  <section class="screen active" data-step="1">
+    <div class="step">1 / 6</div>
+    <h1>Quel est ton objectif ?</h1>
 
-    <label>Ton objectif</label>
-    <select id="objectif">
-      <option>Prendre du muscle</option>
-      <option>Perdre du poids</option>
-      <option>Me remettre en forme</option>
-    </select>
+    <div class="options">
+      <button class="option" onclick="choose(this, 'objectif', 'muscle')">💪 Prendre du muscle</button>
+      <button class="option" onclick="choose(this, 'objectif', 'perte')">🔥 Perdre du poids</button>
+      <button class="option" onclick="choose(this, 'objectif', 'forme')">❤️ Me remettre en forme</button>
+    </div>
 
-    <label>Ton niveau</label>
-    <select id="niveau">
-      <option>Débutant</option>
-      <option>Intermédiaire</option>
-      <option>Avancé</option>
-    </select>
+    <button class="next" id="next1" disabled onclick="next()">Continuer →</button>
+  </section>
 
-    <label>Nombre de séances par semaine</label>
-    <select id="seances">
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-    </select>
+  <section class="screen" data-step="2">
+    <div class="step">2 / 6</div>
+    <h1>Quel est ton niveau ?</h1>
 
-    <label>Durée d'une séance</label>
-    <select id="duree">
-      <option value="20">20 minutes</option>
-      <option value="30">30 minutes</option>
-      <option value="45">45 minutes</option>
-      <option value="60">60 minutes</option>
-    </select>
+    <div class="options">
+      <button class="option" onclick="choose(this, 'niveau', 'debutant')">🌱 Débutant</button>
+      <button class="option" onclick="choose(this, 'niveau', 'intermediaire')">⚡ Intermédiaire</button>
+      <button class="option" onclick="choose(this, 'niveau', 'avance')">🔥 Avancé</button>
+    </div>
 
-    <label>Matériel</label>
-    <select id="materiel">
-      <option>Sans matériel</option>
-      <option>Quelques équipements</option>
-      <option>Salle de sport</option>
-    </select>
+    <button class="next" id="next2" disabled onclick="next()">Continuer →</button>
+  </section>
 
-    <button onclick="creerProgramme()">
-      Créer mon programme
-    </button>
+  <section class="screen" data-step="3">
+    <div class="step">3 / 6</div>
+    <h1>Où vas-tu t'entraîner ?</h1>
+
+    <div class="options">
+      <button class="option" onclick="choose(this, 'lieu', 'maison')">🏠 À la maison</button>
+      <button class="option" onclick="choose(this, 'lieu', 'salle')">🏋️ À la salle</button>
+    </div>
+
+    <button class="next" id="next3" disabled onclick="next()">Continuer →</button>
+  </section>
+
+  <section class="screen" data-step="4">
+    <div class="step">4 / 6</div>
+    <h1>Combien de séances par semaine ?</h1>
+
+    <div class="options">
+      <button class="option" onclick="choose(this, 'seances', 2)">2 séances</button>
+      <button class="option" onclick="choose(this, 'seances', 3)">3 séances</button>
+      <button class="option" onclick="choose(this, 'seances', 4)">4 séances</button>
+      <button class="option" onclick="choose(this, 'seances', 5)">5 séances</button>
+    </div>
+
+    <button class="next" id="next4" disabled onclick="next()">Continuer →</button>
+  </section>
+
+  <section class="screen" data-step="5">
+    <div class="step">5 / 6</div>
+    <h1>Combien de temps par séance ?</h1>
+
+    <div class="options">
+      <button class="option" onclick="choose(this, 'duree', 20)">20 minutes</button>
+      <button class="option" onclick="choose(this, 'duree', 30)">30 minutes</button>
+      <button class="option" onclick="choose(this, 'duree', 45)">45 minutes</button>
+      <button class="option" onclick="choose(this, 'duree', 60)">60 minutes</button>
+    </div>
+
+    <button class="next" id="next5" disabled onclick="next()">Continuer →</button>
+  </section>
+
+  <section class="screen" data-step="6">
+    <div class="step">6 / 6</div>
+    <h1>Quel matériel as-tu ?</h1>
+
+    <div class="options">
+      <button class="option" onclick="choose(this, 'materiel', 'aucun')">🤸 Aucun matériel</button>
+      <button class="option" onclick="choose(this, 'materiel', 'maison')">🏠 Quelques équipements</button>
+      <button class="option" onclick="choose(this, 'materiel', 'salle')">🏋️ Équipement complet</button>
+    </div>
+
+    <button class="next" id="next6" disabled onclick="generate()">Créer mon programme 🔥</button>
+  </section>
+
+  <section class="screen" id="resultScreen">
+
+    <div class="step">TON PROGRAMME</div>
+
+    <h1>Ton programme est prêt 💪</h1>
 
     <div id="result"></div>
 
-  </div>
+    <button class="next restart" onclick="location.reload()">
+      Recommencer
+    </button>
 
-</main>
+  </section>
+
+</div>
 
 <script>
 
-function creerProgramme() {
+const answers = {};
 
-  const objectif = document.getElementById("objectif").value;
-  const niveau = document.getElementById("niveau").value;
-  const seances = Number(document.getElementById("seances").value);
-  const duree = Number(document.getElementById("duree").value);
-  const materiel = document.getElementById("materiel").value;
+let currentStep = 1;
 
-  let exercices = [];
+function choose(button, key, value) {
 
-  if (objectif === "Prendre du muscle") {
+  answers[key] = value;
 
-    if (materiel === "Sans matériel") {
-      exercices = [
+  const options = button.parentElement.querySelectorAll(".option");
+
+  options.forEach(option => {
+    option.classList.remove("selected");
+  });
+
+  button.classList.add("selected");
+
+  document.getElementById("next" + currentStep).disabled = false;
+}
+
+function next() {
+
+  document.querySelector('[data-step="' + currentStep + '"]').classList.remove("active");
+
+  currentStep++;
+
+  document.querySelector('[data-step="' + currentStep + '"]').classList.add("active");
+
+  document.getElementById("progressBar").style.width =
+    ((currentStep / 6) * 100) + "%";
+}
+
+function generate() {
+
+  document.querySelector('[data-step="6"]').classList.remove("active");
+
+  document.getElementById("resultScreen").classList.add("active");
+
+  document.getElementById("progressBar").style.width = "100%";
+
+  let exercises = [];
+
+  if (answers.objectif === "muscle") {
+
+    if (answers.lieu === "maison") {
+
+      exercises = [
         "Pompes — 3 × 8-12",
         "Squats — 3 × 12-15",
-        "Fentes — 3 × 10 par jambe",
-        "Gainage — 3 × 30 secondes"
+        "Fentes — 3 × 10/jambe",
+        "Pike push-ups — 3 × 6-10",
+        "Gainage — 3 × 30-45 sec"
       ];
+
     } else {
-      exercices = [
-        "Pompes ou développé — 3 × 8-12",
-        "Squats — 3 × 10-15",
-        "Tirage ou tractions — 3 × 6-10",
-        "Fentes — 3 × 10 par jambe",
-        "Gainage — 3 × 30-45 secondes"
+
+      exercises = [
+        "Développé couché — 3 × 8-12",
+        "Tirage vertical — 3 × 8-12",
+        "Presse à cuisses — 3 × 10-15",
+        "Élévations latérales — 3 × 12-15",
+        "Gainage — 3 × 30-45 sec"
       ];
     }
 
-  } else if (objectif === "Perdre du poids") {
+  } else if (answers.objectif === "perte") {
 
-    exercices = [
-      "Marche rapide ou cardio — 10 minutes",
+    exercises = [
+      "Marche rapide / cardio — 10 min",
       "Squats — 3 × 15",
-      "Fentes — 3 × 10 par jambe",
+      "Fentes — 3 × 10/jambe",
       "Mountain climbers — 3 × 20",
-      "Gainage — 3 × 30 secondes"
+      "Gainage — 3 × 30 sec"
     ];
 
   } else {
 
-    exercices = [
-      "Marche ou cardio léger — 10 minutes",
+    exercises = [
+      "Échauffement — 5 min",
       "Squats — 3 × 10",
       "Pompes adaptées — 3 × 6-10",
-      "Fentes — 2 × 10 par jambe",
-      "Gainage — 3 × 20 secondes"
+      "Fentes — 2 × 10/jambe",
+      "Gainage — 3 × 20 sec"
     ];
   }
 
-  let programme = "";
+  let html = "";
 
-  for (let i = 1; i <= seances; i++) {
+  for (let i = 1; i <= answers.seances; i++) {
 
-    programme += `
+    html += `
       <div class="day">
-        <h4>Séance ${i}</h4>
-        <p>${exercices.join("<br>")}</p>
+        <h3>Séance ${i}</h3>
+        <p>${exercises.join("<br>")}</p>
       </div>
     `;
   }
 
-  document.getElementById("result").style.display = "block";
-
-  document.getElementById("result").innerHTML = `
-    <h3>Ton programme Fitly 🔥</h3>
-
-    <p><strong>Objectif :</strong> ${objectif}</p>
-    <p><strong>Niveau :</strong> ${niveau}</p>
-    <p><strong>Durée :</strong> ${duree} minutes</p>
-    <p><strong>Matériel :</strong> ${materiel}</p>
-
-    ${programme}
-
-    <p style="margin-top:20px;">
-      💡 Pense à garder une bonne technique et à progresser progressivement.
-    </p>
-  `;
+  document.getElementById("result").innerHTML = html;
 }
 
 </script>
